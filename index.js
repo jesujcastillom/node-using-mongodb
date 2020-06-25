@@ -1,19 +1,19 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-mongoose.Promise = global.Promise;
+import express from "express";
+import bodyParser from "body-parser";
+import { connect } from "mongoose";
 
+import { routes } from "./src/routes/routes";
+
+const connection = connect("mongodb://localhost/productsdb");
 const app = express();
 const PORT = 4000;
-const connection = mongoose.connect('mongodb://localhost/productsdb')
 
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
-app.get('/', (req, res) =>
-    res.send(`Store server running on port ${PORT}`)
-);
+app.get("/", (req, res) => res.send(`Store server running on port ${PORT}`));
 
-app.listen(PORT, () => 
-    console.log(`Your server is running on port ${PORT}`)
-);
+routes(app);
+
+app.listen(PORT, () => console.log(`Your server is running on port ${PORT}`));
