@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+mongoose.Promise = global.Promise;
 
 const app = express();
 const PORT = 4000;
+const connection = mongoose.connect('mongodb://localhost/productsdb')
 
 // bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
